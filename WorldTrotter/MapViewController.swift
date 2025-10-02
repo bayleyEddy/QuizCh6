@@ -21,7 +21,7 @@ class MapViewController: UIViewController{
         
         // Segmented Controls
         let segmentedControl
-                    = UISegmentedControl(items: ["Standard", "Hybrid", "Satellite"])
+        = UISegmentedControl(items: ["Standard", "Hybrid", "Satellite"])
         segmentedControl.backgroundColor =  UIColor.systemBackground
         segmentedControl.selectedSegmentIndex = 0
         
@@ -38,18 +38,36 @@ class MapViewController: UIViewController{
         segmentedControl.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 8)
         let margins = view.layoutMarginsGuide
         let leadingConstraint =
-            segmentedControl.leadingAnchor.constraint(equalTo: margins.leadingAnchor)
+        segmentedControl.leadingAnchor.constraint(equalTo: margins.leadingAnchor)
         let trailingConstraint =
-            segmentedControl.trailingAnchor.constraint(equalTo: margins.trailingAnchor)
-     
+        segmentedControl.trailingAnchor.constraint(equalTo: margins.trailingAnchor)
+        
         // Activate Contraints
         topConstraint.isActive = true
         leadingConstraint.isActive = true
         trailingConstraint.isActive = true
+        
+        
+        //Point of interest Label
+        let pointsOfInterestLabel = UILabel()
+        pointsOfInterestLabel.text = "Points of Interest"
+        pointsOfInterestLabel.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(pointsOfInterestLabel)
+        //Point of Interest Switch
+        let pointsOfInterestSwitch = UISwitch()
+        pointsOfInterestSwitch.isOn = true
+        pointsOfInterestSwitch.addTarget(self,
+                                         action: #selector(togglePointsOfInterest(_:)),
+                                         for: .valueChanged)
+        pointsOfInterestSwitch.translatesAutoresizingMaskIntoConstraints = false
+        view.addSubview(pointsOfInterestSwitch)
+        
+        pointsOfInterestLabel.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 12).isActive = true
+        pointsOfInterestLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor, constant: 12).isActive = true
+        
+        pointsOfInterestSwitch.centerYAnchor.constraint(equalTo: pointsOfInterestLabel.centerYAnchor).isActive = true
+        pointsOfInterestSwitch.leadingAnchor.constraint(equalTo: pointsOfInterestLabel.trailingAnchor, constant: 12).isActive = true
     }
-
-
-    
     override func viewDidLoad(){
         super.viewDidLoad()
         
@@ -67,6 +85,14 @@ class MapViewController: UIViewController{
             mapView.mapType = .satellite
         default:
             break
+        }
+    }
+                    
+    @objc func togglePointsOfInterest(_ sender: UISwitch){
+        if sender.isOn{
+            mapView.pointOfInterestFilter = .includingAll
+        } else{
+            mapView.pointOfInterestFilter = .excludingAll
         }
     }
     
