@@ -48,6 +48,7 @@ class MapViewController: UIViewController{
         trailingConstraint.isActive = true
         
         
+        
         //Point of interest Label
         let pointsOfInterestLabel = UILabel()
         pointsOfInterestLabel.text = "Points of Interest"
@@ -62,11 +63,31 @@ class MapViewController: UIViewController{
         pointsOfInterestSwitch.translatesAutoresizingMaskIntoConstraints = false
         view.addSubview(pointsOfInterestSwitch)
         
+        
+        let pointsOfInterestLabelTopConstraint =
+        pointsOfInterestLabel.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 12)
+        let pointsOfInterestLabelLeadingConstraint =
+        pointsOfInterestLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor, constant: 12)
+        
+        // Define the switch constraints
+        let pointsOfInterestSwitchCenterYConstraint =
+        pointsOfInterestSwitch.centerYAnchor.constraint(equalTo: pointsOfInterestLabel.centerYAnchor)
+        
+        let pointsOfInterestSwitchLeadingConstraint =
+        pointsOfInterestSwitch.leadingAnchor.constraint(equalTo: pointsOfInterestLabel.trailingAnchor, constant: 12)
+        
+        // Activate Constaints
+        pointsOfInterestLabelTopConstraint.isActive = true
+        pointsOfInterestLabelLeadingConstraint.isActive = true
+        pointsOfInterestSwitchCenterYConstraint.isActive = true
+        pointsOfInterestSwitchLeadingConstraint.isActive = true
+        /*
         pointsOfInterestLabel.topAnchor.constraint(equalTo: segmentedControl.bottomAnchor, constant: 12).isActive = true
         pointsOfInterestLabel.leadingAnchor.constraint(equalTo: margins.leadingAnchor, constant: 12).isActive = true
         
         pointsOfInterestSwitch.centerYAnchor.constraint(equalTo: pointsOfInterestLabel.centerYAnchor).isActive = true
         pointsOfInterestSwitch.leadingAnchor.constraint(equalTo: pointsOfInterestLabel.trailingAnchor, constant: 12).isActive = true
+         */
     }
     override func viewDidLoad(){
         super.viewDidLoad()
